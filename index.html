@@ -425,8 +425,8 @@
       // the wheel does NOT double that discount's chance — we first pick
       // the discount by these exact weights, then randomly pick which of
       // its two matching segments to land on (for visual variety only).
-      var discountLabels = ['5% OFF', '10% OFF', '15% OFF', '20% OFF'];
-      var discountWeights = [40, 40, 15, 5];
+      var discountLabels = ['5% OFF', '10% OFF', '15% OFF', '20% OFF', '40% OFF', '50% OFF'];
+      var discountWeights = [40, 40, 15, 5, 0, 0];
 
       function getWeightedDiscountLabel(){
         var totalWeight = 100;
