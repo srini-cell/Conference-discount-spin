@@ -142,3 +142,292 @@ let n=document.getElementById("name").value;
 let h=document.getElementById("hospital").value;
 
 let m=document.getElementById("mobile").value;
+
+  <!-- SPIN WHEEL SECTION START -->
+
+<style>
+
+.wheel-container{
+    text-align:center;
+    margin:30px auto;
+    padding:20px;
+}
+
+.pointer{
+    width:0;
+    height:0;
+    border-left:22px solid transparent;
+    border-right:22px solid transparent;
+    border-bottom:45px solid #0a7d32;
+    margin:auto;
+}
+
+#wheel{
+    max-width:90%;
+    margin-top:10px;
+}
+
+#spinBtn{
+    margin-top:20px;
+    padding:15px 45px;
+    border:none;
+    border-radius:30px;
+    background:#0a7d32;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#spinBtn:disabled{
+    background:#888;
+}
+
+#result{
+    margin-top:20px;
+    color:#0a7d32;
+    font-size:24px;
+    font-weight:bold;
+}
+
+</style>
+
+
+<div class="wheel-container">
+
+    <div class="pointer"></div>
+
+    <canvas id="wheel" width="400" height="400"></canvas>
+
+    <br>
+
+    <button id="spinBtn" onclick="spinWheel()">
+        SPIN & WIN
+    </button>
+
+    <h2 id="result"></h2>
+
+</div>
+
+
+
+<script>
+
+const canvas = document.getElementById("wheel");
+const ctx = canvas.getContext("2d");
+
+
+const prizes = [
+
+{
+    text:"5%",
+    probability:35
+},
+
+{
+    text:"10%",
+    probability:35
+},
+
+{
+    text:"15%",
+    probability:25
+},
+
+{
+    text:"20%",
+    probability:5
+}
+
+];
+
+
+const colors=[
+"#2e7d32",
+"#43a047",
+"#66bb6a",
+"#1b5e20"
+];
+
+
+let currentRotation=0;
+let spinning=false;
+
+
+
+function drawWheel(){
+
+    let start=0;
+
+
+    prizes.forEach((item,index)=>{
+
+
+        let slice =
+        (item.probability/100)*Math.PI*2;
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(200,200);
+
+        ctx.arc(
+            200,
+            200,
+            180,
+            start,
+            start+slice
+        );
+
+
+        ctx.fillStyle=colors[index];
+
+        ctx.fill();
+
+
+        ctx.save();
+
+
+        ctx.translate(200,200);
+
+        ctx.rotate(start+(slice/2));
+
+
+        ctx.fillStyle="white";
+
+        ctx.font="bold 25px Arial";
+
+        ctx.textAlign="center";
+
+
+        ctx.fillText(
+            item.text,
+            120,
+            10
+        );
+
+
+        ctx.restore();
+
+
+        start+=slice;
+
+
+    });
+
+}
+
+
+drawWheel();
+
+
+
+
+
+function selectPrize(){
+
+
+    let random =
+    Math.random()*100;
+
+
+    let total=0;
+
+
+    for(let prize of prizes){
+
+
+        total += prize.probability;
+
+
+        if(random <= total){
+
+            return prize.text;
+
+        }
+
+    }
+
+}
+
+
+
+
+function spinWheel(){
+
+
+    if(spinning)
+    return;
+
+
+
+    if(localStorage.getItem("spinCompleted")){
+
+
+        alert(
+        "You have already participated!"
+        );
+
+        return;
+
+    }
+
+
+
+    spinning=true;
+
+
+    document.getElementById("spinBtn").disabled=true;
+
+
+
+    let result = selectPrize();
+
+
+
+    let randomDegree =
+    Math.floor(Math.random()*360);
+
+
+
+    currentRotation +=
+    (360*6)+randomDegree;
+
+
+
+    canvas.style.transition =
+    "transform 5s cubic-bezier(0.17,0.67,0.12,0.99)";
+
+
+    canvas.style.transform =
+    "rotate("+currentRotation+"deg)";
+
+
+
+    setTimeout(function(){
+
+
+        document.getElementById("result").innerHTML =
+        "Congratulations! You won "+result+" OFF";
+
+
+        localStorage.setItem(
+        "spinCompleted",
+        "yes"
+        );
+
+
+        spinning=false;
+
+
+
+    },5000);
+
+
+
+}
+
+
+</script>
+
+<!-- SPIN WHEEL SECTION END -->
