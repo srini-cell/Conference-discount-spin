@@ -3,154 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spin & Win</title>
+
+<title>Doctor Spin & Win</title>
 
 <style>
+
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
 }
 
 body{
-background:linear-gradient(135deg,#0a7b3e,#13b35d);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:20px;
+    margin:0;
+    background:linear-gradient(135deg,#e8f5e9,#ffffff);
+    color:#1b5e20;
+}
+
+.header{
+    background:#087f23;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+.header h1{
+    margin:0;
 }
 
 .container{
-width:100%;
-max-width:450px;
-background:#fff;
-border-radius:20px;
-padding:25px;
-box-shadow:0 10px 30px rgba(0,0,0,.25);
-text-align:center;
-}
-
-h1{
-color:#0a7b3e;
-margin-bottom:15px;
-}
-
-p{
-margin-bottom:20px;
-color:#555;
+    width:95%;
+    max-width:500px;
+    margin:30px auto;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.15);
 }
 
 input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border-radius:10px;
-border:1px solid #ccc;
-font-size:16px;
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
 }
 
 button{
-width:100%;
-padding:14px;
-margin-top:15px;
-border:none;
-border-radius:10px;
-background:#0a7b3e;
-color:#fff;
-font-size:18px;
-cursor:pointer;
+    width:100%;
+    padding:15px;
+    background:#087f23;
+    color:white;
+    border:none;
+    border-radius:30px;
+    font-size:18px;
+    cursor:pointer;
+    margin-top:15px;
 }
 
 button:hover{
-background:#06662f;
+    background:#065f18;
 }
 
-#wheelSection{
-display:none;
-margin-top:20px;
+
+/* Doctor Form */
+
+#formPage{
+    display:block;
 }
 
-#wheel{
-width:320px;
-height:320px;
-border-radius:50%;
-margin:auto;
-background:#eee;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:22px;
-font-weight:bold;
-color:#333;
-border:10px solid #0a7b3e;
-}
 
-#result{
-margin-top:20px;
-font-size:24px;
-font-weight:bold;
-color:#0a7b3e;
-}
-</style>
+/* Wheel Page */
 
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>Conference Spin & Win</h1>
-
-<p>Fill your details to continue</p>
-
-<div id="formSection">
-
-<input type="text" id="name" placeholder="Doctor Name">
-
-<input type="text" id="hospital" placeholder="Hospital">
-
-<input type="tel" id="mobile" placeholder="Mobile Number">
-
-<button onclick="startGame()">
-Continue
-</button>
-
-</div>
-
-<div id="wheelSection">
-
-<div id="wheel">
-Spin Wheel
-</div>
-
-<button id="spinBtn">
-SPIN NOW
-</button>
-
-<div id="result"></div>
-
-</div>
-
-<script>
-
-function startGame(){
-
-let n=document.getElementById("name").value;
-
-let h=document.getElementById("hospital").value;
-
-let m=document.getElementById("mobile").value;
-
-  <!-- SPIN WHEEL SECTION START -->
-
-<style>
-
-.wheel-container{
+#wheelPage{
+    display:none;
     text-align:center;
-    margin:30px auto;
-    padding:20px;
 }
 
 .pointer{
@@ -158,276 +85,228 @@ let m=document.getElementById("mobile").value;
     height:0;
     border-left:22px solid transparent;
     border-right:22px solid transparent;
-    border-bottom:45px solid #0a7d32;
+    border-bottom:45px solid #087f23;
     margin:auto;
 }
 
-#wheel{
-    max-width:90%;
-    margin-top:10px;
+#wheelCanvas{
+    width:100%;
+    max-width:400px;
+    margin-top:15px;
 }
 
-#spinBtn{
-    margin-top:20px;
-    padding:15px 45px;
-    border:none;
-    border-radius:30px;
-    background:#0a7d32;
-    color:white;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-#spinBtn:disabled{
-    background:#888;
-}
-
-#result{
-    margin-top:20px;
-    color:#0a7d32;
+.result{
     font-size:24px;
     font-weight:bold;
+    margin-top:20px;
+}
+
+.coupon{
+    background:#e8f5e9;
+    padding:15px;
+    border-radius:10px;
+    margin-top:15px;
+    font-size:20px;
+    display:none;
+}
+
+#confetti{
+    position:fixed;
+    top:0;
+    left:0;
+    pointer-events:none;
 }
 
 </style>
 
+</head>
 
-<div class="wheel-container">
+<body>
 
-    <div class="pointer"></div>
+<div class="header">
+<h1>Doctor Spin & Win</h1>
+<p>Medical Conference Special Offer</p>
+</div>
 
-    <canvas id="wheel" width="400" height="400"></canvas>
 
-    <br>
+<div class="container" id="formPage">
 
-    <button id="spinBtn" onclick="spinWheel()">
-        SPIN & WIN
-    </button>
+<h2>Doctor Registration</h2>
 
-    <h2 id="result"></h2>
+<input id="doctorName" placeholder="Doctor Name">
+
+<input id="hospital" placeholder="Hospital Name">
+
+<input id="mobile" placeholder="Mobile Number">
+
+
+<button onclick="openWheel()">
+Continue
+</button>
 
 </div>
 
 
+<div class="container" id="wheelPage">
+
+<h2>Spin the Wheel</h2>
+
+<div class="pointer"></div>
+
+<canvas id="wheelCanvas" width="400" height="400"></canvas>
+
+<button id="spinBtn" onclick="spinWheel()">
+SPIN & WIN
+</button>
+
+<div class="result" id="result"></div>
+
+<div class="coupon" id="couponBox"></div>
+
+</div>
+  <canvas id="confetti"></canvas>
+
+
+<!-- PASTE PART 2 STARTS HERE -->
 
 <script>
 
-const canvas = document.getElementById("wheel");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById("wheelCanvas");
+
+...
+
+</script>
+
+<!-- PART 2 ENDS HERE -->
+  <script>
+
+function startConfetti(){
+
+    const canvas =
+    document.getElementById("confetti");
+
+    const ctx =
+    canvas.getContext("2d");
 
 
-const prizes = [
+    canvas.width =
+    window.innerWidth;
 
-{
-    text:"5%",
-    probability:35
-},
-
-{
-    text:"10%",
-    probability:35
-},
-
-{
-    text:"15%",
-    probability:25
-},
-
-{
-    text:"20%",
-    probability:5
-}
-
-];
+    canvas.height =
+    window.innerHeight;
 
 
-const colors=[
-"#2e7d32",
-"#43a047",
-"#66bb6a",
-"#1b5e20"
-];
+    let pieces=[];
 
 
-let currentRotation=0;
-let spinning=false;
+    for(let i=0;i<120;i++){
 
+        pieces.push({
 
+            x:Math.random()*canvas.width,
 
-function drawWheel(){
+            y:Math.random()*canvas.height- canvas.height,
 
-    let start=0;
+            size:Math.random()*8+4,
 
+            speed:Math.random()*3+2,
 
-    prizes.forEach((item,index)=>{
+            angle:Math.random()*360
 
-
-        let slice =
-        (item.probability/100)*Math.PI*2;
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(200,200);
-
-        ctx.arc(
-            200,
-            200,
-            180,
-            start,
-            start+slice
-        );
-
-
-        ctx.fillStyle=colors[index];
-
-        ctx.fill();
-
-
-        ctx.save();
-
-
-        ctx.translate(200,200);
-
-        ctx.rotate(start+(slice/2));
-
-
-        ctx.fillStyle="white";
-
-        ctx.font="bold 25px Arial";
-
-        ctx.textAlign="center";
-
-
-        ctx.fillText(
-            item.text,
-            120,
-            10
-        );
-
-
-        ctx.restore();
-
-
-        start+=slice;
-
-
-    });
-
-}
-
-
-drawWheel();
-
-
-
-
-
-function selectPrize(){
-
-
-    let random =
-    Math.random()*100;
-
-
-    let total=0;
-
-
-    for(let prize of prizes){
-
-
-        total += prize.probability;
-
-
-        if(random <= total){
-
-            return prize.text;
-
-        }
+        });
 
     }
 
-}
 
+    function animate(){
 
-
-
-function spinWheel(){
-
-
-    if(spinning)
-    return;
-
-
-
-    if(localStorage.getItem("spinCompleted")){
-
-
-        alert(
-        "You have already participated!"
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
         );
 
-        return;
+
+        pieces.forEach(p=>{
+
+            p.y += p.speed;
+
+            p.angle += 5;
+
+
+            ctx.save();
+
+            ctx.translate(
+                p.x,
+                p.y
+            );
+
+            ctx.rotate(
+                p.angle*Math.PI/180
+            );
+
+
+            ctx.fillStyle =
+            "hsl("+
+            Math.random()*360+
+            ",80%,50%)";
+
+
+            ctx.fillRect(
+                0,
+                0,
+                p.size,
+                p.size
+            );
+
+
+            ctx.restore();
+
+
+            if(p.y > canvas.height){
+
+                p.y = -10;
+
+            }
+
+
+        });
+
+
+        requestAnimationFrame(animate);
 
     }
 
 
-
-    spinning=true;
-
-
-    document.getElementById("spinBtn").disabled=true;
+    animate();
 
 
+    setTimeout(()=>{
 
-    let result = selectPrize();
-
-
-
-    let randomDegree =
-    Math.floor(Math.random()*360);
-
-
-
-    currentRotation +=
-    (360*6)+randomDegree;
-
-
-
-    canvas.style.transition =
-    "transform 5s cubic-bezier(0.17,0.67,0.12,0.99)";
-
-
-    canvas.style.transform =
-    "rotate("+currentRotation+"deg)";
-
-
-
-    setTimeout(function(){
-
-
-        document.getElementById("result").innerHTML =
-        "Congratulations! You won "+result+" OFF";
-
-
-        localStorage.setItem(
-        "spinCompleted",
-        "yes"
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
         );
-
-
-        spinning=false;
-
-
 
     },5000);
 
 
-
 }
+
 
 
 </script>
 
-<!-- SPIN WHEEL SECTION END -->
+
+</body>
+
+</html>
+  
+  
+  
+
+
+<canvas id="confetti"></canvas>
