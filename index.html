@@ -220,32 +220,46 @@
   </div>
 
   <!-- ===================== SCREEN 1: Doctor Registration ===================== -->
-  <div class="card screen active" id="registrationScreen">
-    <h1>Spin &amp; Win</h1>
-    <p class="subtitle">Enter your details to participate</p>
+ <div class="card screen active" id="registrationScreen">
+  <h1>Spin &amp; Win</h1>
+  <p class="subtitle">Enter your details to participate</p>
 
-    <form id="registrationForm" novalidate>
-      <div class="field" id="nameField">
-        <label for="doctorName">Doctor Name</label>
-        <input type="text" id="doctorName" placeholder="Dr. John Smith" autocomplete="name">
-        <div class="error-msg">Please enter your name.</div>
-      </div>
+  <form id="registrationForm" novalidate>
 
-      <div class="field" id="hospitalField">
-        <label for="hospitalName">Hospital / Clinic Name</label>
-        <input type="text" id="hospitalName" placeholder="City General Hospital" autocomplete="organization">
-        <div class="error-msg">Please enter your hospital/clinic name.</div>
-      </div>
+    <div class="field" id="nameField">
+      <label for="doctorName">Doctor Name</label>
+      <input type="text" id="doctorName" placeholder="Dr. John Smith" autocomplete="name">
+      <div class="error-msg">Please enter your name.</div>
+    </div>
 
-      <div class="field" id="mobileField">
-        <label for="mobileNumber">Mobile Number</label>
-        <input type="tel" id="mobileNumber" placeholder="10-digit mobile number" autocomplete="tel" inputmode="numeric" maxlength="10">
-        <div class="error-msg">Please enter a valid 10-digit mobile number.</div>
-      </div>
+    <div class="field" id="hospitalField">
+      <label for="hospitalName">Hospital / Clinic Name</label>
+      <input type="text" id="hospitalName" placeholder="City General Hospital" autocomplete="organization">
+      <div class="error-msg">Please enter your hospital/clinic name.</div>
+    </div>
 
-      <button type="submit" class="btn" id="continueBtn">SUBMIT &amp; CONTINUE</button>
-    </form>
-  </div>
+    <div class="field" id="areaField">
+      <label for="areaName">Area</label>
+      <input type="text" id="areaName" placeholder="Eg. T. Nagar">
+      <div class="error-msg">Please enter your area.</div>
+    </div>
+
+    <div class="field" id="stateField">
+      <label for="stateName">State</label>
+      <input type="text" id="stateName" placeholder="Eg. Tamil Nadu">
+      <div class="error-msg">Please enter your state.</div>
+    </div>
+
+    <div class="field" id="mobileField">
+      <label for="mobileNumber">Mobile Number</label>
+      <input type="tel" id="mobileNumber" placeholder="10-digit mobile number" autocomplete="tel" inputmode="numeric" maxlength="10">
+      <div class="error-msg">Please enter a valid 10-digit mobile number.</div>
+    </div>
+
+    <button type="submit" class="btn" id="continueBtn">SUBMIT &amp; CONTINUE</button>
+
+  </form>
+</div>
 
   <!-- ===================== SCREEN 2: Spin Wheel ===================== -->
   <div class="card screen" id="wheelScreen">
