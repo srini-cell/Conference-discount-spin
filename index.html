@@ -372,14 +372,14 @@
       // visual variety. The odds of winning each discount are NOT split
       // per segment; they stay exactly as before (see getWeightedPrizeIndex).
       var prizes = [
-        { label: '5% OFF',  color: '#12915b' },
-        { label: '10% OFF', color: '#1db874' },
-        { label: '15% OFF', color: '#0b6e4f' },
-        { label: '20% OFF', color: '#7fd8ab' },
-        { label: '5% OFF',  color: '#0e7d47' },
-        { label: '10% OFF', color: '#22a682' },
-        { label: '15% OFF', color: '#0a5c40' },
-        { label: '20% OFF', color: '#9fe3c2' }
+        { label: 'Spot gift',  color: '#12915b' },
+        { label: '+ 1 year waranty', color: '#1db874' },
+        { label: 'Gift Voucher', color: '#0b6e4f' },
+        { label: '1 year AMC', color: '#7fd8ab' },
+        { label: 'Spot gift',  color: '#0e7d47' },
+        { label: '+ 1 year waranty', color: '#22a682' },
+        { label: 'Gift Voucher', color: '#0a5c40' },
+        { label: '1 year AMC', color: '#9fe3c2' }
       ];
       var segmentAngle = (2 * Math.PI) / prizes.length;
 
@@ -439,8 +439,8 @@
       // the wheel does NOT double that discount's chance — we first pick
       // the discount by these exact weights, then randomly pick which of
       // its two matching segments to land on (for visual variety only).
-      var discountLabels = ['5% OFF', '10% OFF', '15% OFF', '20% OFF'];
-      var discountWeights = [40, 40, 15, 5];
+      var discountLabels = ['Spot gift', '+ 1 year waranty', 'Gift Voucher', '1 year AMC'];
+      var discountWeights = [70, 5, 10, 15];
 
       function getWeightedDiscountLabel(){
         var totalWeight = 100;
