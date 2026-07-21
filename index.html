@@ -149,7 +149,7 @@
   .doctor-tag span{ color: var(--green-dark); }
 
   .wheel-wrap{
-    position:relative; width: 280px; height: 280px; margin: 0 auto 24px;
+    position:relative; width: 300px; height: 300px; margin: 0 auto 24px;
   }
   #wheelCanvas{
     width:100%; height:100%; display:block;
@@ -200,7 +200,7 @@
   }
 
   @media (max-width:380px){
-    .wheel-wrap{ width:240px; height:240px; }
+    .wheel-wrap{ width:250px; height:250px; }
     h1{ font-size:20px; }
     .logo-wrap{ width:90px; height:90px; }
   }
@@ -268,7 +268,7 @@
 
     <div class="wheel-wrap">
       <div class="pointer"></div>
-      <canvas id="wheelCanvas" width="280" height="280"></canvas>
+      <canvas id="wheelCanvas" width="300" height="300"></canvas>
       <div class="hub">SPIN<br>&amp; WIN</div>
     </div>
 
@@ -278,7 +278,7 @@
     <div class="result-box" id="resultBox">
       <div class="result-title">Congratulations!</div>
       <div class="prize-display">
-        You have won<b id="prizeDisplay">10%</b>discount from DFCI.
+        You have won<b id="prizeDisplay">10%</b>from DFCI.
       </div>
     </div>
   </div>
@@ -383,6 +383,26 @@
       ];
       var segmentAngle = (2 * Math.PI) / prizes.length;
 
+      // Splits a label into multiple lines so longer wordings (e.g.
+      // "+ 1 year waranty") fit inside a segment instead of overflowing.
+      function wrapLabelToLines(text, maxWidth){
+        var words = text.split(' ');
+        var lines = [];
+        var currentLine = '';
+
+        for(var w = 0; w < words.length; w++){
+          var testLine = currentLine ? (currentLine + ' ' + words[w]) : words[w];
+          if(ctx.measureText(testLine).width > maxWidth && currentLine){
+            lines.push(currentLine);
+            currentLine = words[w];
+          } else {
+            currentLine = testLine;
+          }
+        }
+        if(currentLine){ lines.push(currentLine); }
+        return lines;
+      }
+
       function drawWheel(rotation){
         rotation = rotation || 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -408,8 +428,18 @@
           ctx.rotate(startAngle + segmentAngle / 2);
           ctx.textAlign = 'right';
           ctx.fillStyle = '#ffffff';
-          ctx.font = 'bold 16px Arial';
-          ctx.fillText(prizes[i].label, radius - 24, 6);
+          ctx.font = 'bold 12px Arial';
+
+          // Give the wrapper a bit less than the full outer radius to
+          // work with, so wrapped lines stay clear of the rim.
+          var maxLabelWidth = radius - 46;
+          var lines = wrapLabelToLines(prizes[i].label, maxLabelWidth);
+          var lineHeight = 13;
+          var startY = -((lines.length - 1) * lineHeight) / 2;
+
+          for(var lIdx = 0; lIdx < lines.length; lIdx++){
+            ctx.fillText(lines[lIdx], radius - 20, startY + (lIdx * lineHeight) + 4);
+          }
           ctx.restore();
         }
 
@@ -517,10 +547,9 @@
       // Result Display
       // =========================================================
       function finishSpin(winningIndex){
-        var prizeLabel = prizes[winningIndex].label; // e.g. "10% OFF"
-        var percentOnly = prizeLabel.replace(' OFF', '');
+        var prizeLabel = prizes[winningIndex].label; // e.g. "Spot gift"
 
-        prizeDisplay.textContent = percentOnly;
+        prizeDisplay.textContent = prizeLabel;
         resultBox.style.display = 'block';
         spinBtn.style.display = 'none';
         isSpinning = false;
